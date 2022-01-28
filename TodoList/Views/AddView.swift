@@ -9,19 +9,19 @@ import SwiftUI
 
 struct AddView: View {
     
+    @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject private var listViewModel: ListViewModel
     @State private var textFieldText: String = ""
     
     var body: some View {
         ScrollView {
             VStack {
-                TextField("Type smth here", text: $textFieldText)
+                TextField("Type something here...", text: $textFieldText)
                     .padding(.horizontal)
                     .frame(height: 55)
                     .background(Color(UIColor.systemGray5))
                     .cornerRadius(10)
-                Button {
-                    
-                } label: {
+                Button(action: saveButtonPressed, label: {
                     Text("Save".uppercased())
                         .foregroundColor(.white)
                         .font(.headline)
@@ -29,18 +29,23 @@ struct AddView: View {
                         .frame(maxWidth: .infinity)
                         .background(Color.accentColor)
                         .cornerRadius(10)
-                }
+                    
+                })
+                    .disabled(!textIsAppropriate())
             }
             .padding(16)
         }
         .navigationTitle("Add an item 🖊")
     }
-}
-
-struct AddView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            AddView()
+    
+    func saveButtonPressed() {
+        if textIsAppropriate() {
+            listViewModel.addItem(title: textFieldText)
+            presentationMode.wrappedValue.dismiss()
         }
+    }
+    
+    func textIsAppropriate() -> Bool {
+        return textFieldText.count > 2
     }
 }

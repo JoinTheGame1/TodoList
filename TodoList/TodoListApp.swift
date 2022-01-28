@@ -13,16 +13,19 @@ import SwiftUI
  Model - data point
  View - UI
  ViewModel - manages Models for view
- 
  */
 
 @main
 struct TodoListApp: App {
+    
+    @StateObject var listViewModel: ListViewModel = ListViewModel()
+    
     var body: some Scene {
         WindowGroup {
             NavigationView {
                 ListView()
             }
+            .environmentObject(listViewModel)
         }
     }
 }
