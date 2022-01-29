@@ -36,6 +36,9 @@ struct AddView: View {
             .padding(16)
         }
         .navigationTitle("Add an item 🖊")
+        .onTapGesture {
+            UIApplication.shared.endEditing()
+        }
     }
     
     func saveButtonPressed() {
@@ -47,5 +50,11 @@ struct AddView: View {
     
     func textIsAppropriate() -> Bool {
         return textFieldText.count > 2
+    }
+}
+
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
