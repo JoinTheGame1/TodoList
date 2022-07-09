@@ -1,2 +1,1 @@
-# TodoList
-TodoList with using SwiftUI, MVVM and UserDefaults.
+# TodoList (MVVM, SwiftUI)
